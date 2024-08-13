@@ -1,0 +1,31 @@
+public class Main {
+    public static int maxSumSubarrayOfSizeK(int[] arr, int k) {
+        // Base case: if the array length is less than k, return 0 or an error
+        if (arr.length < k) {
+            return 0;
+        }
+
+        // Calculate the sum of the first k elements
+        int maxSum = 0;
+        for (int i = 0; i < k; i++) {
+            maxSum += arr[i];
+        }
+
+        // This is the current window sum
+        int windowSum = maxSum;
+
+        // Slide the window over the array
+        for (int i = k; i < arr.length; i++) {
+            windowSum += arr[i] - arr[i - k];
+            maxSum = Math.max(maxSum, windowSum);
+        }
+
+        return maxSum;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {2, 1, 5, 1, 3, 2};
+        int k = 3;
+        System.out.println("Maximum sum of subarray of size " + k + " is: " + maxSumSubarrayOfSizeK(arr, k));
+    }
+}
